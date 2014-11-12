@@ -17,6 +17,10 @@ gem 'rake'
 
 gem 'shotgun'
 
+gem 'rack-flash3'
+
+gem 'byebug'
+
 group :test do
   gem 'faker'
   gem 'rspec'
