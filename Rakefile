@@ -123,9 +123,9 @@ task "console" do
   exec "irb -r./config/environment"
 end
 
-if Sinatra::Application.development?
-  desc "Run the specs"
-  RSpec::Core::RakeTask.new(:spec)
-end
+# if Sinatra::Application.development?
+#   desc "Run the specs"
+#   RSpec::Core::RakeTask.new(:spec)
+# end
 
 task :default  => :specs
