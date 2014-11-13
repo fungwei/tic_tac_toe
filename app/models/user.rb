@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Remember to create a migration!
-  has_many :pending_tweets
+  has_many :games
+  has_many :moves
 
   validates :username, uniqueness: true, presence: true
   validates :password, presence: true

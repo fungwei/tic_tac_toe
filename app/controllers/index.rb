@@ -2,5 +2,9 @@ use Rack::Flash
 
 get '/' do
   # Look in app/views/index.erb
-  erb :index
+  if session[:user_id] == nil
+    erb :index
+  else
+    redirect "/games"
+  end
 end

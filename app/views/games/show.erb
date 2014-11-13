@@ -1,0 +1,57 @@
+<script>
+function postAjaxTTT(position) {
+  $.ajax(
+      {
+          url : "/games/<%= @game_id %>",
+          type: "POST",
+          data : {position: position},
+          success:function(result)
+          {
+            $("#results").html(result);
+
+            //debugger
+              //data: return data from server
+          },
+      });
+};
+
+ $(document).ready(function(){
+    <% counter = 1 %>
+    <% 9.times do %>
+        $( "#ttt_<%= counter %>" ).click(function(e) {
+          postAjaxTTT(<%= counter %>)
+        });
+    <% counter += 1 %>
+    <% end %>
+  });
+</script>
+
+<%=  @game.player1.username %> vs <%=  @game.player2.username %>
+<div class="ttt_board">
+  <div class="ttt_row">
+    <div id="ttt_1" class="ttt_all <%= @hover %> <%= @state[1] %>">
+    </div>
+    <div id="ttt_2"  class="ttt_all <%= @hover %> <%= @state[2] %>">
+    </div>
+    <div id="ttt_3"  class="ttt_all <%= @hover %> <%= @state[3] %>">
+    </div>
+  </div>
+  <div class="ttt_row">
+    <div id="ttt_4" class="ttt_all <%= @hover %> <%= @state[4] %>">
+    </div>
+    <div id="ttt_5"  class="ttt_all <%= @hover %> <%= @state[5] %>">
+    </div>
+    <div id="ttt_6"  class="ttt_all <%= @hover %> <%= @state[6] %>">
+    </div>
+  </div>
+  <div class="ttt_row">
+    <div id="ttt_7"  class="ttt_all <%= @hover %> <%= @state[7] %>">
+    </div>
+    <div id="ttt_8"  class="ttt_all <%= @hover %> <%= @state[8] %>">
+    </div>
+    <div id="ttt_9"  class="ttt_all <%= @hover %> <%= @state[9] %>">
+    </div>
+  </div>
+</div>
+
+<div id="results"></div>

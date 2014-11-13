@@ -1,0 +1,12 @@
+<h4>Play a game with</h4>
+<% @users.each do |user| %>
+<form action='/games' method='post' role="form">
+  <input name="player2_id" value="<%= user.id %>" type="hidden">
+  <button type="submit" name="submit" class="btn btn-default"><%= user.username %></button>
+</form>
+<% end %>
+
+<h4>Active Games</h4>
+<% @active.each do |game| %>
+<p><%= game.player1.username %> vs <%= game.player2.username %> : Time Started <%= game.created_at %></p>
+<% end %>

@@ -1,4 +1,4 @@
-body { padding-top: 70px; }
+body { padding-top: 80px; }
 
 .container {
   margin: 20px auto;
@@ -15,4 +15,38 @@ form{
 
 th {
   text-align: left;
+}
+
+#ttt_1, #ttt_4, #ttt_7{
+  border-right: solid 1px black;
+}
+
+#ttt_3, #ttt_6, #ttt_9{
+  border-left: solid 1px black;
+}
+
+#ttt_1, #ttt_2, #ttt_3{
+  border-bottom: solid 1px black;
+}
+
+#ttt_7, #ttt_8, #ttt_9{
+  border-top: solid 1px black;
+}
+
+.ttt_all{
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.ttt_row{
+  clear: both;
+}
+
+.hover_x:hover, .player1_x{
+  background-image: url("../../images/x.png");
+}
+
+.hover_o:hover, .player2_o{
+  background-image: url("../../images/o.png");
 }

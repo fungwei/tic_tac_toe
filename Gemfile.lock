@@ -79,6 +79,7 @@ DEPENDENCIES
   activesupport
   byebug
   faker
+  json
   pg
   rack-flash3
   rake

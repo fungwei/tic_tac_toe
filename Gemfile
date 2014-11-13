@@ -21,6 +21,8 @@ gem 'rack-flash3'
 
 gem 'byebug'
 
+gem 'json'
+
 group :test do
   gem 'faker'
   gem 'rspec'
