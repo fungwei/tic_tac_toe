@@ -5,6 +5,8 @@ get '/games' do
   else
     @users = User.where.not(id: session[:user_id])
     @active = Game.where(winner_id: nil).where(loser_id: nil).where("player1_id = ? OR player2_id = ?", session[:user_id], session[:user_id])
+    @win = Game.where(winner_id: session[:user_id]).count
+    @lose = Game.where(loser: session[:user_id]).count
     erb :'games/index'
   end
 end
@@ -21,30 +23,22 @@ get '/games/:id' do
   if session[:user_id] == nil
     redirect '/'
   else
+    @state = []
     @game_id = params[:id]
     @user_id = session[:user_id]
     @game = Game.find(@game_id)
     if session[:user_id] == @game.player1_id
       @hover = "hover_x"
+      @player = 1
     else
       @hover = "hover_o"
+      @player = 2
     end
 
-    count = 1
-    @state = []
-    9.times do
-      if @game.moves.find_by(move: count.to_s) != nil
-        if @game.moves.find_by(move: count.to_s).user_id == @game.player1_id
-          @state[count] = "player1_x"
-        elsif @game.moves.find_by(move: count.to_s).user_id == @game.player2_id
-          @state[count] = "player2_o"
-        end
-      else
-        @state[count] = "none"
-      end
-      count += 1
-    end
+    @state = Game.get_state(@game)
 
+    # puts @state[1]
+    # puts @hover
 
 
     erb :'games/show'
@@ -56,9 +50,24 @@ post '/games/:id' do
   position = params[:position]
   game = Game.find(params[:id])
 
-  move = game.moves.new(user_id: user_id )
+  move = game.moves.new(user_id: user_id, move: position)
+  state = []
   if move.save
 
-    erb :'games/show'
+   state = Game.get_state(game)
   end
+  state.to_json
+
+
+end
+
+get '/games/:id/poll' do
+  user_id = session[:user_id]
+  game = Game.find(params[:id])
+
+
+  state = Game.get_state(game)
+  state.to_json
+
+
 end

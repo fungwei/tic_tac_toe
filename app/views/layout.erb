@@ -24,6 +24,7 @@
     <div class="container">
       <% if session[:user_id] != nil %>
       Welcome <%= User.find(session[:user_id]).username %><br>
+      <a href="/games"><button class="btn btn-primary">My Games</button></a>
       <form action="/logout" method="post">
         <input name="_method" value="delete" type="hidden">
         <button type="submit" class="btn btn-primary">Log Out</button>

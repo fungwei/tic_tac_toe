@@ -17,19 +17,19 @@ th {
   text-align: left;
 }
 
-#ttt_1, #ttt_4, #ttt_7{
+#ttt_1, #ttt_4, #ttt_7,#ttt_1_lock, #ttt_4_lock, #ttt_7_lock{
   border-right: solid 1px black;
 }
 
-#ttt_3, #ttt_6, #ttt_9{
+#ttt_3, #ttt_6, #ttt_9,#ttt_3_lock, #ttt_6_lock, #ttt_9_lock{
   border-left: solid 1px black;
 }
 
-#ttt_1, #ttt_2, #ttt_3{
+#ttt_1, #ttt_2, #ttt_3, #ttt_1_lock, #ttt_2_lock, #ttt_3_lock{
   border-bottom: solid 1px black;
 }
 
-#ttt_7, #ttt_8, #ttt_9{
+#ttt_7, #ttt_8, #ttt_9, #ttt_7_lock, #ttt_8_lock, #ttt_9_lock{
   border-top: solid 1px black;
 }
 
@@ -49,4 +49,8 @@ th {
 
 .hover_o:hover, .player2_o{
   background-image: url("../../images/o.png");
+}
+
+.hide{
+  display: none;
 }

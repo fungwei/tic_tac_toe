@@ -8,5 +8,8 @@
 
 <h4>Active Games</h4>
 <% @active.each do |game| %>
-<p><%= game.player1.username %> vs <%= game.player2.username %> : Time Started <%= game.created_at %></p>
+<a href="/games/<%= game.id %>"><%= game.player1.username %> vs <%= game.player2.username %> : Time Started <%= game.created_at %></a><br>
 <% end %>
+
+<h5>Wins: <%= @win %></h5>
+<h5>Losses: <%= @lose %></h5>

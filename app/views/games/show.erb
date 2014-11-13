@@ -5,17 +5,94 @@ function postAjaxTTT(position) {
           url : "/games/<%= @game_id %>",
           type: "POST",
           data : {position: position},
+          dataType: "json",
           success:function(result)
           {
-            $("#results").html(result);
 
-            //debugger
+            //    if (result[0] == 0){
+            //     $("#turn").html('<%= @game.player1.username %>')
+            //   } else if (result[0] == 1){
+            //     $("#turn").html('<%= @game.player2.username %>')
+            //   }
+
+            // // $("#results").html(result[1]);
+            //   <% count = 1 %>
+            //   <% 9.times do %>
+            //       if ((result[0] == 0 && <%= @player %> == 2) || (result[0] == 1 && <%= @player %> == 1)){
+            //       $("#ttt_<%= count %>").addClass('hide');
+            //       $("#ttt_<%= count %>_lock").removeClass('hide');
+            //       }else if (result[<%= count %>] == 'player1_x' || result[<%= count %>] == 'player2_o'){
+            //       $("#ttt_<%= count %>").addClass(result[<%= count %>]);
+            //       $("#ttt_<%= count %>_lock").addClass(result[<%= count %>]);
+            //       $("#ttt_<%= count %>").addClass('hide');
+            //       $("#ttt_<%= count %>_lock").removeClass('hide');
+            //     }
+            //     <% count += 1 %>
+            //   <% end %>
+
+
+            // debugger
               //data: return data from server
+          },
+      });
+};
+function pollAjax(){
+  $.ajax(
+      {
+          url : "/games/<%= @game_id %>/poll",
+          dataType: "json",
+          success:function(result)
+          {
+              if (result[0] == 0){
+                $("#turn").html('<%= @game.player1.username %>\'s Turn')
+              } else if (result[0] == 1){
+                $("#turn").html('<%= @game.player2.username %>\'s Turn')
+              } else if (result[0] == 2){
+                $("#turn").html('<%= @game.player1.username %> WINS!!!!!')
+              } else if (result[0] == 3){
+                $("#turn").html('<%= @game.player2.username %> WINS!!!!!')
+              } else if (result[0] == 4){
+                $("#turn").html('DRAW!!')
+              }
+
+            // $("#results").html(result[1]);
+              <% count = 1 %>
+              <% 9.times do %>
+                  if (result[<%= count %>] == 'player1_x' || result[<%= count %>] == 'player2_o'){
+                    $("#ttt_<%= count %>").addClass(result[<%= count %>]);
+                    $("#ttt_<%= count %>_lock").addClass(result[<%= count %>]);
+                  }
+
+                  if (result[0] == 2 || result[0] == 3){
+                    $("#ttt_<%= count %>").addClass('hide');
+                    $("#ttt_<%= count %>_lock").removeClass('hide');
+                  } else if ((result[0] == 0 && <%= @player %> == 2) || (result[0] == 1 && <%= @player %> == 1)){
+                    $("#ttt_<%= count %>").addClass('hide');
+                    $("#ttt_<%= count %>_lock").removeClass('hide');
+                  } else if ((result[0] == 0 && <%= @player %> == 1) || (result[0] == 1 && <%= @player %> == 2)){
+                    $("#ttt_<%= count %>").removeClass('hide');
+                    $("#ttt_<%= count %>_lock").addClass('hide');
+
+                    if (result[<%= count %>] == 'player1_x' || result[<%= count %>] == 'player2_o'){
+                      $("#ttt_<%= count %>").addClass('hide');
+                      $("#ttt_<%= count %>_lock").removeClass('hide');
+                    }
+
+                  }
+
+
+
+                <% count += 1 %>
+              <% end %>
+            // debugger
+              //data: return data from server
+              pollAjax()
           },
       });
 };
 
  $(document).ready(function(){
+    pollAjax()
     <% counter = 1 %>
     <% 9.times do %>
         $( "#ttt_<%= counter %>" ).click(function(e) {
@@ -27,29 +104,48 @@ function postAjaxTTT(position) {
 </script>
 
 <%=  @game.player1.username %> vs <%=  @game.player2.username %>
+<div id="turn"></div>
 <div class="ttt_board">
   <div class="ttt_row">
     <div id="ttt_1" class="ttt_all <%= @hover %> <%= @state[1] %>">
     </div>
+    <div id="ttt_1_lock" class="ttt_all <%= @state[1] %> hide">
+    </div>
     <div id="ttt_2"  class="ttt_all <%= @hover %> <%= @state[2] %>">
     </div>
+    <div id="ttt_2_lock" class="ttt_all <%= @state[2] %> hide">
+    </div>
     <div id="ttt_3"  class="ttt_all <%= @hover %> <%= @state[3] %>">
+    </div>
+    <div id="ttt_3_lock" class="ttt_all <%= @state[3] %> hide">
     </div>
   </div>
   <div class="ttt_row">
     <div id="ttt_4" class="ttt_all <%= @hover %> <%= @state[4] %>">
     </div>
+    <div id="ttt_4_lock" class="ttt_all <%= @state[4] %> hide">
+    </div>
     <div id="ttt_5"  class="ttt_all <%= @hover %> <%= @state[5] %>">
     </div>
+    <div id="ttt_5_lock" class="ttt_all <%= @state[5] %> hide">
+    </div>
     <div id="ttt_6"  class="ttt_all <%= @hover %> <%= @state[6] %>">
+    </div>
+    <div id="ttt_6_lock" class="ttt_all <%= @state[6] %> hide">
     </div>
   </div>
   <div class="ttt_row">
     <div id="ttt_7"  class="ttt_all <%= @hover %> <%= @state[7] %>">
     </div>
+    <div id="ttt_7_lock" class="ttt_all <%= @state[7] %> hide">
+    </div>
     <div id="ttt_8"  class="ttt_all <%= @hover %> <%= @state[8] %>">
     </div>
+    <div id="ttt_8_lock" class="ttt_all <%= @state[8] %> hide">
+    </div>
     <div id="ttt_9"  class="ttt_all <%= @hover %> <%= @state[9] %>">
+    </div>
+    <div id="ttt_9_lock" class="ttt_all <%= @state[9] %> hide">
     </div>
   </div>
 </div>
